@@ -18,13 +18,10 @@ jobs:
           sudo bash -c 'curl -L https://github.com/dolthub/dolt/releases/latest/download/install.sh | sudo bash'
 
       - name: Clone juicebox repository
-        run: dolt clone jigglyjams/juicebox
+        run: dolt clone jigglyjams/juicebox $HOME/juicebox
 
-      - name: Change directory to juicebox
-        run: cd juicebox
-
-      - name: Run doltdump and save output
-        run: dolt dump > ../dolt_output.txt
+      - name: Change dir, run dolt dump and save output
+        run: cd $HOME/juicebox && dolt dump
                 
       - name: Install Node.js
         uses: actions/setup-node@v2
