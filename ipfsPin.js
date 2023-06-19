@@ -1,6 +1,6 @@
-import axios from 'axios';
-import FormData from 'form-data';
-import fs from 'fs';
+const axios = require('axios');
+const FormData = require('form-data');
+const fs = require('fs');
 
 const API = 'https://ipfs.infura.io:5001/api/v0';
 
