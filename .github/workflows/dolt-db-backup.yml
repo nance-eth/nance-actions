@@ -31,9 +31,9 @@ jobs:
       - name: Upload output to IPFS
         id: ipfsPin
         run: |
-          npm install axios form-data
+          npm install axios form-data dotenv
           touch .env
-          echo INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}\nINFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }} >> .env
+          echo INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}$'\n'INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }} >> .env
           node ipfsPin.js $HOME/juicebox/doltdump.sql
             
       - name: Display IPFS CID
