@@ -1,9 +1,8 @@
 name: Dolt Action
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: "0 0 * * *" # Run every day at midnight
 
 jobs:
   build:
@@ -33,9 +32,5 @@ jobs:
         run: |
           npm install axios form-data dotenv
           touch .env
-          echo INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}$'\n'INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }} >> .env
+          echo INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}$'\n'INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }}$'\n'${{secrets.MY_GITHUB_TOKEN}}$'\n'${{secrets.IPFS_GATEWAY}}>> .env
           node ipfsPin.js $HOME/juicebox/doltdump.sql
-            
-      - name: Display IPFS CID
-        run: |
-          echo "IPFS CID: ${{ steps.ipfsPin.outputs.ipfs-cid }}"
