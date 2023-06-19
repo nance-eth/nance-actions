@@ -32,10 +32,9 @@ jobs:
         id: ipfsPin
         run: |
           npm install axios form-data
+          touch .env
+          echo INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}\nINFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }} >> .env
           node ipfsPin.js $HOME/juicebox/doltdump.sql
-          env:
-            INFURA_IPFS_ID: ${{ secrets.INFURA_IPFS_ID }}
-            INFURA_IPFS_SECRET: ${{ secrets.INFURA_IPFS_SECRET }}
             
       - name: Display IPFS CID
         run: |

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
@@ -26,7 +27,7 @@ async function dotPin(dataIn, encoding = 'utf-8') {
     console.log(`IPFS CID: ${cid}`);
     return cid;
   }).catch((e) => {
-    return Promise.reject(e);
+    console.error(e);
   });
 }
 
