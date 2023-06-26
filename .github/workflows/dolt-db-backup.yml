@@ -29,8 +29,11 @@ jobs:
 
       - name: Upload output to IPFS
         id: ipfsPin
+        env:
+          MY_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INFURA_IPFS_ID: ${{ secrets.INFURA_IPFS_ID }}
+          INFURA_IPFS_SECRET: ${{ secrets.INFURA_IPFS_SECRET }}
+          IPFS_GATEWAY: ${{ secrets.IPFS_GATEWAY }}
         run: |
           npm install axios form-data dotenv
-          touch .env
-          echo INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}$'\n'INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }}$'\n'${{secrets.MY_GITHUB_TOKEN}}$'\n'${{secrets.IPFS_GATEWAY}}>> .env
           node ipfsPin.js $HOME/juicebox/doltdump.sql
