@@ -15,6 +15,7 @@ const AUTH_HEADER = `Basic ${Buffer.from(
 
 // https://github.com/jbx-protocol/juice-interface/blob/main/src/lib/infura/ipfs.ts
 async function dotPin(dataIn, encoding = 'utf-8') {
+  console.log(`Pinning to IPFS`);
   const data = Buffer.from(dataIn, encoding);
   const formData = new FormData();
   formData.append('file', data);
@@ -36,6 +37,7 @@ async function dotPin(dataIn, encoding = 'utf-8') {
 }
 
 async function writeCIDToReadme(cid) {
+  console.log(`Writing CID to ${filePath}`);
   const sha = await axios({
     method: 'get',
     url: `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`,

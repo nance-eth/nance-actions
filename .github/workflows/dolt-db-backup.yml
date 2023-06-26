@@ -28,10 +28,12 @@ jobs:
         with:
           node-version: '14'
 
+      - name: Install libraries
+        run: npm install axios form-data dotenv
+
       - name: Upload output to IPFS
         id: ipfsPin
         run: |
-          npm install axios form-data dotenv
           node ipfsPin.js $HOME/juicebox/doltdump.sql
           echo "INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}" >> .env
           echo "INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }}" >> .env
