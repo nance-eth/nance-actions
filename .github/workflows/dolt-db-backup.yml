@@ -33,8 +33,7 @@ jobs:
         run: |
           npm install axios form-data dotenv
           node ipfsPin.js $HOME/juicebox/doltdump.sql
-          echo
-            INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}$'\n'
-            INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }}$'\n'
-            MY_GITHUB_TOKEN=${{secrets.MY_GITHUB_TOKEN}}$'\n'
-            IPFS_GATEWAY=${{secrets.IPFS_GATEWAY}}>> .env
+          echo "INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}" >> .env
+          echo "INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }}" >> .env
+          echo "MY_GITHUB_TOKEN=${{ secrets.MY_GITHUB_TOKEN }}" >> .env
+          echo "IPFS_GATEWAY=${{ secrets.IPFS_GATEWAY }}" >> .env
