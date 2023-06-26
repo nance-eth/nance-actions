@@ -34,8 +34,8 @@ jobs:
       - name: Upload output to IPFS
         id: ipfsPin
         run: |
-          node ipfsPin.js $HOME/juicebox/doltdump.sql
           echo "INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}" >> .env
           echo "INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }}" >> .env
           echo "MY_GITHUB_TOKEN=${{ secrets.MY_GITHUB_TOKEN }}" >> .env
           echo "IPFS_GATEWAY=${{ secrets.IPFS_GATEWAY }}" >> .env
+          node ipfsPin.js $HOME/juicebox/doltdump.sql
