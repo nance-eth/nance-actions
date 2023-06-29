@@ -56,7 +56,7 @@ async function writeCIDToReadme(cid) {
     method: 'put',
     url: `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`,
     data: {
-      message: 'Update README.md',
+      message: `update ${filePath} with ${cid}`,
       content,
       branch: 'main',
       sha,
