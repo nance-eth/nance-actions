@@ -38,7 +38,7 @@ async function dotPin(dataIn, encoding = 'utf-8') {
 
 async function writeCIDToReadme(cid) {
   console.log(`Writing CID to ${filePath}`);
-  const sha = await axios({
+  const { sha, oldContent } = await axios({
     method: 'get',
     url: `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`,
     headers: {
@@ -46,16 +46,18 @@ async function writeCIDToReadme(cid) {
       'Content-Type': 'application/json',
     },
   }).then((res) => {
-    return res.data.sha;
+    return { sha: res.data.sha, oldContent: res.data.content.replaceAll('\n', '') };
   }).catch((e) => {
     console.error(e);
   });
+  const content = Buffer.from(`${IPFS_GATEWAY}/ipfs/${cid}`).toString('base64')
+  if (content === oldContent) { console.log('no updates skip readme push'); return; }
   return axios({
     method: 'put',
     url: `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`,
     data: {
       message: 'Update README.md',
-      content: Buffer.from(`${IPFS_GATEWAY}/ipfs/${cid}`).toString('base64'),
+      content,
       branch: 'main',
       sha,
     },
