@@ -46,7 +46,7 @@ async function writeCIDToReadme(cid) {
       'Content-Type': 'application/json',
     },
   }).then((res) => {
-    return { sha: res?.data?.sha, oldContent: res?.data?.content?.replaceAll('\n', '') };
+    return { sha: res.data.sha, oldContent: res.data.content.replace(/\n/g, '') };
   }).catch((e) => {
     console.error(e);
   });
