@@ -1,0 +1,17 @@
+name: bananapus reminder
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Run every day at midnight
+  workflow_dispatch: # Run manually
+
+env:
+  NANCE_API: https://api.nance.app
+  SPACE: bananapus
+
+jobs:
+  call-nance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: hit-it
+        run: curl $NANCE_API/$SPACE/reminder
