@@ -1,4 +1,4 @@
-name: Dolt Action
+name: Juicebox Dolt Backup
 
 on:
   schedule:
@@ -43,4 +43,4 @@ jobs:
           echo "INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }}" >> .env
           echo "MY_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> .env
           echo "IPFS_GATEWAY=${{ secrets.IPFS_GATEWAY }}" >> .env
-          node ipfsPin.js $HOME/juicebox/doltdump.sql
+          node ipfsPin.js juicebox $HOME/juicebox/doltdump.sql

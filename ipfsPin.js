@@ -7,7 +7,7 @@ const API = 'https://ipfs.infura.io:5001/api/v0';
 const IPFS_GATEWAY = process.env.IPFS_GATEWAY || 'https://ipfs.io';
 const owner = 'nance-eth';
 const repo = 'nance-actions';
-const filePath = 'README.md';
+const filePath = `CIDs/${process.argv[2]}/README.md`;
 
 const AUTH_HEADER = `Basic ${Buffer.from(
   `${process.env.INFURA_IPFS_ID}:${process.env.INFURA_IPFS_SECRET}`,
@@ -69,7 +69,7 @@ async function writeCIDToReadme(cid) {
 }
 
 async function main() {
-  const file = fs.readFileSync(process.argv[2]);
+  const file = fs.readFileSync(process.argv[3]);
   const cid = await dotPin(file);
   console.log(await writeCIDToReadme(cid));
 }

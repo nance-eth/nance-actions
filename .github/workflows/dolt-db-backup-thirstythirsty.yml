@@ -1,4 +1,4 @@
-name: Dolt Action
+name: ThirstyThirsty Dolt Backup
 
 on:
   schedule:
@@ -8,12 +8,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     permissions:
       # Give the default GITHUB_TOKEN write permission.
       # https://github.blog/changelog/2023-02-02-github-actions-updating-the-default-github_token-permissions-to-read-only/
       contents: write
-    
+
+    env:  # Define the variable 'SPACE' here
+      SPACE: "thirstythirsty"
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -22,12 +25,12 @@ jobs:
         run: |
           sudo bash -c 'curl -L https://github.com/dolthub/dolt/releases/latest/download/install.sh | sudo bash'
 
-      - name: Clone thirstythirsty repository
-        run: dolt clone nance/thirstythirsty $HOME/thirstythirsty
+      - name: Clone ${{ env.SPACE }} repository  # Use the variable here
+        run: dolt clone nance/${{ env.SPACE }} $HOME/${{ env.SPACE }}
 
       - name: Change dir, run dolt dump and save output
-        run: cd $HOME/thirstythirsty && dolt dump
-                
+        run: cd $HOME/${{ env.SPACE }} && dolt dump
+
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
@@ -43,4 +46,4 @@ jobs:
           echo "INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }}" >> .env
           echo "MY_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> .env
           echo "IPFS_GATEWAY=${{ secrets.IPFS_GATEWAY }}" >> .env
-          node ipfsPin.js $HOME/thirstythirsty/doltdump.sql
+          node ipfsPin.js ${{ env.SPACE }} $HOME/${{ env.SPACE }}/doltdump.sql
