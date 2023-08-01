@@ -1,1 +1,5 @@
-https://nance.infura-ipfs.io/ipfs/QmWFjXPKuUFnysmmYwCCVGNVRHFTsfh5E8Z7YCnFBYYm3K
+# IPFS Backup of Nance Dolt databases
+
+[juicebox](/CIDs/juicebox/README.md)
+
+[thirstythirsty](/CIDs/thirstythirsty/README.md)
