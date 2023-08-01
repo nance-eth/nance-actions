@@ -1,0 +1,46 @@
+name: Dolt Action
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Run every day at midnight
+  workflow_dispatch: # Run manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      # Give the default GITHUB_TOKEN write permission.
+      # https://github.blog/changelog/2023-02-02-github-actions-updating-the-default-github_token-permissions-to-read-only/
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Dolt
+        run: |
+          sudo bash -c 'curl -L https://github.com/dolthub/dolt/releases/latest/download/install.sh | sudo bash'
+
+      - name: Clone thirstythirsty repository
+        run: dolt clone nance/thirstythirsty $HOME/thirstythirsty
+
+      - name: Change dir, run dolt dump and save output
+        run: cd $HOME/thirstythirsty && dolt dump
+                
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install libraries
+        run: npm install axios form-data dotenv
+
+      - name: Upload output to IPFS
+        id: ipfsPin
+        run: |
+          echo "INFURA_IPFS_ID=${{ secrets.INFURA_IPFS_ID }}" >> .env
+          echo "INFURA_IPFS_SECRET=${{ secrets.INFURA_IPFS_SECRET }}" >> .env
+          echo "MY_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> .env
+          echo "IPFS_GATEWAY=${{ secrets.IPFS_GATEWAY }}" >> .env
+          node ipfsPin.js $HOME/thirstythirsty/doltdump.sql
