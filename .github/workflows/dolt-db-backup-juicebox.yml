@@ -26,7 +26,7 @@ jobs:
           sudo bash -c 'curl -L https://github.com/dolthub/dolt/releases/latest/download/install.sh | sudo bash'
 
       - name: Clone ${{ env.SPACE }} repository  # Use the variable here
-        run: dolt clone nance/${{ env.SPACE }} $HOME/${{ env.SPACE }}
+        run: dolt clone jigglyjams/${{ env.SPACE }} $HOME/${{ env.SPACE }}
 
       - name: Change dir, run dolt dump and save output
         run: cd $HOME/${{ env.SPACE }} && dolt dump
