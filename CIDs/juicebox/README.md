@@ -1,1 +1,1 @@
-https://nance.infura-ipfs.io/ipfs/undefined
+https://nance.infura-ipfs.io/ipfs/QmeyjktNgspBd2FJNkumb2geZha8kcAVdQTgSfh4JkYWGU
